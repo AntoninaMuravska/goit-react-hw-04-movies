@@ -1,0 +1,88 @@
+.card {
+
+}
+
+.img{
+    display: block;
+    max-width: 300px;
+margin-right: 30px;
+}
+
+.thumb {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.infoThumb {
+    display: flex;
+    flex-direction: column;
+
+
+    color: midnightblue;
+}
+
+.title {
+    margin: 0;
+    margin-bottom: 40px;
+
+    font-size: 32px;
+}
+
+.secondaryTitle {
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.genres {
+    display: flex;
+    flex-direction: column;
+}
+
+.genresList {
+    display: flex;
+    flex-wrap: wrap;
+
+    font-size: 20px;
+}
+
+.genresItem {
+    margin-right: 10px;
+}
+
+.info {
+    margin: 0;
+    margin-bottom: 30px;
+
+    font-size: 20px;
+}
+
+.moreInfoList {
+    display: flex;
+    margin-bottom: 30px;
+
+    font-size: 20px;
+}
+
+.moreInfoItem {
+    margin-right: 30px;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.btnBack {
+    min-width: 100px;
+    padding: 8px;
+    background-color: transparent;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.btnBack:hover {
+    background-color: palevioletred;
+    color: white;
+}
+
+

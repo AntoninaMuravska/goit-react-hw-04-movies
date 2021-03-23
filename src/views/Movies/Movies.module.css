@@ -1,0 +1,33 @@
+.form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.input {
+    margin-right: 10px;
+
+    padding: 8px;
+
+    border: 1px solid darkblue;
+
+}
+
+.input:focus, .input:hover {
+    border-color: palevioletred;
+}
+
+.btn{
+    min-width: 100px;
+    padding: 8px;
+    border: 1px solid darkblue;
+
+
+    background-color: transparent;
+}
+
+.btn:hover {
+    color: white;
+    background-color: palevioletred;
+  
+}
