@@ -11,6 +11,8 @@ const MoviePreview = ({ title, backdrop_path }) => (
           : defaultBackdropImg
       }
       alt={title}
+      width="500"
+      height="281"
     />
     <h2 className={s.title}>{title}</h2>
   </div>

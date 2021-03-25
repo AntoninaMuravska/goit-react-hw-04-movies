@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import MoviesApi from '../../services/movieApi';
 import s from './Reviews.module.css'
 
 class Reviews extends Component {
@@ -9,12 +9,14 @@ class Reviews extends Component {
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=16793a08fc468099c942dee45d510578&language=en-US&page=1`,
-    );
+    this.setState({ reviews: await MoviesApi.movieReviews(movieId) }
+    )
+    // const response = await axios.get(
+    //   `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=16793a08fc468099c942dee45d510578&language=en-US&page=1`,
+    // );
     // console.log(response.data);
 
-    this.setState({ reviews: response.data.results });
+    // this.setState({ reviews: response.data.results });
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import MoviesApi from '../../services/movieApi';
 import defaultImage from '../../images/defaultImage.jpg';
 import s from './Cast.module.css'
 
@@ -10,12 +10,15 @@ class Cast extends Component {
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=16793a08fc468099c942dee45d510578&language=en-US`,
-    );
-    // console.log(response.data);
+    this.setState({ ...await MoviesApi.movieCast(movieId) }
+    )
 
-    this.setState({cast: response.data.cast });
+    // const response = await axios.get(
+    //   `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=16793a08fc468099c942dee45d510578&language=en-US`,
+    // );
+    // // console.log(response.data);
+
+    // this.setState({cast: response.data.cast });
   }
 
   render() {

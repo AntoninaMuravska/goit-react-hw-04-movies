@@ -1,75 +1,68 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
-import Cast from '../../components/Cast/Cast';
-import Reviews from '../../components/Reviews/Reviews';
-import axios from 'axios';
+import MoviesApi from '../../services/movieApi';
 import routes from '../../routes';
 import s from './MovieDetailsPage.module.css';
+import defaultBackdropImg from '../../components/MoviePreview/defaultBackdropImg.jpg';
+
+const Cast = lazy(() =>
+  import('../../components/Cast' /* webpackChunkName: "cast" */),
+);
+const Reviews = lazy(() =>
+  import('../../components/Reviews' /* webpackChunkName: "reviews" */),
+);
 
 class MovieDetailsPage extends Component {
   state = {
-    adult: null,
-    backdrop_path: null,
-    belongs_to_collection: null,
-    budget: null,
     genres: null,
-    homepage: null,
-    id: null,
-    imdb_id: null,
-    original_language: null,
-    original_title: null,
     overview: null,
-    popularity: null,
     poster_path: null,
-    production_companies: null,
-    production_countries: null,
-    release_date: null,
-    revenue: null,
-    runtime: null,
-    spoken_languages: null,
-    status: null,
-    tagline: null,
     title: null,
-    video: null,
     vote_average: null,
-    vote_count: null,
   };
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=16793a08fc468099c942dee45d510578&language=en-US`,
-    );
+    this.setState({ ...(await MoviesApi.movieDetails(movieId)) });
+
+    // const response = await axios.get(
+    //   `https://api.themoviedb.org/3/movie/${movieId}?api_key=16793a08fc468099c942dee45d510578&language=en-US`,
+    // );
     // console.log(response.data);
 
-    this.setState({ ...response.data });
+    // this.setState({ ...response.data });
   }
 
   handleGoBack = () => {
-    const {location, history} = this.props;
+    const { location, history } = this.props;
     // if (location.state && location.state.from) {
     //   return history.push(location.state.from);
     // }
     // history.push(routes.home);
 
-    history.push(location?.state?.from || routes.home)
-  }
+    // console.log(location.state.from);
+    
+
+    history.push(location?.state?.from || routes.home);
+   
+  };
 
   render() {
     const { title, vote_average, overview, genres, poster_path } = this.state;
-    const { match } = this.props;
+    const { match, location } = this.props;
+    console.log(location.state.from)
     return (
       <div className={s.card}>
-        <button
-          type="button"
-          className={s.btnBack}
-          onClick={this.handleGoBack}
-        >
+        <button type="button" className={s.btnBack} onClick={this.handleGoBack}>
           Back
         </button>
         <div className={s.thumb}>
           <img
-            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            src={
+              poster_path
+                ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                : defaultBackdropImg
+            }
             alt=""
             className={s.img}
           />
@@ -98,7 +91,10 @@ class MovieDetailsPage extends Component {
         <ul className={s.moreInfoList}>
           <li className={s.moreInfoItem}>
             <NavLink
-              to={`${match.url}/cast`}
+              to={{
+                pathname: `${match.url}/cast`,
+                state: { ...location.state },
+              }}
               className={s.link}
               activeClassName="NavLink--active"
             >
@@ -107,7 +103,10 @@ class MovieDetailsPage extends Component {
           </li>
           <li>
             <NavLink
-              to={`${match.url}/reviews`}
+              to={{
+                pathname: `${match.url}/reviews`,
+                state: { ...location.state },
+              }}
               className={s.link}
               activeClassName="NavLink--active"
             >
@@ -115,10 +114,12 @@ class MovieDetailsPage extends Component {
             </NavLink>
           </li>
         </ul>
-        <Switch>
-          <Route path={`${match.path}/cast`} component={Cast} />
-          <Route path={`${match.path}/reviews`} component={Reviews} />
-        </Switch>
+        <Suspense fallback={<b>Loading...</b>}>
+          <Switch>
+            <Route path={`${match.path}/cast`} component={Cast} />
+            <Route path={`${match.path}/reviews`} component={Reviews} />
+          </Switch>
+        </Suspense>
       </div>
     );
   }
