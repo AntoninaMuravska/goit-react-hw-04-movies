@@ -1,11 +1,8 @@
 import axios from 'axios';
-// import DEFAULT_IMG from '../images/defaultImage.jpg'
 
 class MovieAPI {
   constructor() {
     this.API_KEY = '16793a08fc468099c942dee45d510578';
-    //   this.DEFAULT_IMG = DEFAULT_IMG;
-    //   this.BASE_IMG_URL = 'https://image.tmdb.org/t/p/w780/';
     this.BASE_URL = 'https://api.themoviedb.org/3/';
   }
 

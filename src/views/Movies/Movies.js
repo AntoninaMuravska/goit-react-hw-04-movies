@@ -13,7 +13,7 @@ class Movies extends Component {
 
   componentDidMount() {
     const { search } = this.props.location;
-    console.log(search);
+    // console.log(search);
     if (search) {
     MoviesApi.searchMovies(search.slice(7)).then(movies => this.setState({movies: movies}));
   }
