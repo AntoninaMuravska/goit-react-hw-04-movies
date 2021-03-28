@@ -22,9 +22,6 @@ class MovieAPI {
       .get(
         `${this.BASE_URL}search/movie?query=${query}&api_key=${this.API_KEY}&language=en-US&page=1&include_adult=false`,
       )
-      .catch(function (error) {
-        console.log('Error', error.message);
-      });
     const movies = response.data.results;
     return movies;
   }
