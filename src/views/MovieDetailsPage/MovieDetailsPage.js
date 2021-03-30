@@ -23,7 +23,11 @@ class MovieDetailsPage extends Component {
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    this.setState({ ...(await MoviesApi.movieDetails(movieId)) });
+    try {
+      this.setState({ ...(await MoviesApi.movieDetails(movieId)) });
+    } catch (error) {
+      console.log(error);
+    }
 
     // const response = await axios.get(
     //   `https://api.themoviedb.org/3/movie/${movieId}?api_key=16793a08fc468099c942dee45d510578&language=en-US`,
@@ -41,16 +45,14 @@ class MovieDetailsPage extends Component {
     // history.push(routes.home);
 
     // console.log(location.state.from);
-    
 
     history.push(location?.state?.from || routes.home);
-   
   };
 
   render() {
     const { title, vote_average, overview, genres, poster_path } = this.state;
     const { match, location } = this.props;
-    console.log(location.state.from)
+    console.log(location.state.from);
     return (
       <div className={s.card}>
         <button type="button" className={s.btnBack} onClick={this.handleGoBack}>

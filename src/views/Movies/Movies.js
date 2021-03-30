@@ -15,9 +15,13 @@ class Movies extends Component {
     const { search } = this.props.location;
     // console.log(search);
     if (search) {
-    MoviesApi.searchMovies(search.slice(7)).then(movies => this.setState({movies: movies}));
+      MoviesApi.searchMovies(search.slice(7))
+        .then(movies => this.setState({ movies: movies }))
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
-}
 
   hanldeChange = e => {
     this.setState({ query: e.currentTarget.value.toLowerCase() });

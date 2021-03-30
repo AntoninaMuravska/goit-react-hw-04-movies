@@ -10,9 +10,13 @@ class HomePage extends Component {
   };
 
   async componentDidMount() {
-    this.setState({
-      movies: await MoviesApi.getPopular()
-  })
+    try {
+      this.setState({
+        movies: await MoviesApi.getPopular(),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {

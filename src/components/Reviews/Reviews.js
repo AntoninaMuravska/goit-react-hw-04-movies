@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MoviesApi from '../../services/movieApi';
-import s from './Reviews.module.css'
+import s from './Reviews.module.css';
 
 class Reviews extends Component {
   state = {
@@ -9,8 +9,12 @@ class Reviews extends Component {
 
   async componentDidMount() {
     const { movieId } = this.props.match.params;
-    this.setState({ reviews: await MoviesApi.movieReviews(movieId) }
-    )
+    try {
+      this.setState({ reviews: await MoviesApi.movieReviews(movieId) });
+    } catch (error) {
+      console.log(error);
+    }
+
     // const response = await axios.get(
     //   `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=16793a08fc468099c942dee45d510578&language=en-US&page=1`,
     // );

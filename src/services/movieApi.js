@@ -15,44 +15,33 @@ class MovieAPI {
   }
 
   async searchMovies(query) {
-    const response = await axios
-      .get(
-        `${this.BASE_URL}search/movie?query=${query}&api_key=${this.API_KEY}&language=en-US&page=1&include_adult=false`,
-      )
+    const response = await axios.get(
+      `${this.BASE_URL}search/movie?query=${query}&api_key=${this.API_KEY}&language=en-US&page=1&include_adult=false`,
+    );
     const movies = response.data.results;
     return movies;
   }
 
   async movieDetails(id) {
-    const response = await axios
-      .get(`${this.BASE_URL}movie/${id}?api_key=${this.API_KEY}&language=en-US`)
-      .catch(function (error) {
-        console.log('Error', error.message);
-      });
+    const response = await axios.get(
+      `${this.BASE_URL}movie/${id}?api_key=${this.API_KEY}&language=en-US`,
+    );
     const data = response.data;
     return data;
   }
 
   async movieReviews(id) {
-    const response = await axios
-      .get(
-        `${this.BASE_URL}movie/${id}/reviews?api_key=${this.API_KEY}&language=en-US`,
-      )
-      .catch(function (error) {
-        console.log('Error', error.message);
-      });
+    const response = await axios.get(
+      `${this.BASE_URL}movie/${id}/reviews?api_key=${this.API_KEY}&language=en-US`,
+    );
     const results = response.data.results;
     return results;
   }
 
   async movieCast(id) {
-    const response = await axios
-      .get(
-        `${this.BASE_URL}movie/${id}/credits?api_key=${this.API_KEY}&language=en-US`,
-      )
-      .catch(function (error) {
-        console.log('Error', error.message);
-      });
+    const response = await axios.get(
+      `${this.BASE_URL}movie/${id}/credits?api_key=${this.API_KEY}&language=en-US`,
+    );
     const data = response.data;
     return data;
   }
